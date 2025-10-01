@@ -465,40 +465,61 @@ class MediaLoader {
     async loadAllMedia() {
         console.log('🎨 Loading your photos and videos...');
         
+        // First, collect any existing floating items from HTML
+        this.collectExistingItems();
+        
         // Add some demo floating elements to show how it works
         this.createDemoElements();
         
-        // Load specific known images first (1.png through 14.png exist in your folder)
-        const knownImages = [];
+        // Load the 14 specific images via JavaScript (as backup)
+        console.log('📸 Loading numbered images 1.png to 14.png...');
+        
         for (let i = 1; i <= 14; i++) {
-            knownImages.push(`${i}.png`);
+            const imageName = `${i}.png`;
+            const success = await this.tryLoadImage(imageName);
+            if (success) {
+                console.log(`✅ Loaded ${imageName}`);
+            } else {
+                console.log(`❌ Failed to load ${imageName}`);
+            }
         }
         
-        // Load the known images
-        for (const imageName of knownImages) {
-            await this.tryLoadImage(imageName);
-        }
+        console.log(`📸 Total media items: ${this.mediaItems.length}`);
         
-        // Try to load common user file patterns
-        const imageNames = this.generateCommonNames();
-        const videoNames = this.generateCommonVideoNames();
+        // Setup floating animation for all items
+        this.setupFloatingAnimation();
         
-        // Load additional images
-        for (const imageName of imageNames) {
-            await this.tryLoadImage(imageName);
-        }
-        
-        // Load videos  
-        for (const videoName of videoNames) {
-            await this.tryLoadVideo(videoName);
-        }
-        
-        console.log(`📸 Loaded ${this.loadedCount} media files!`);
-        
-        // Show instructions
+        // Show instructions after a delay
         setTimeout(() => {
             this.showMediaInstructions();
         }, 2000);
+    }
+
+    collectExistingItems() {
+        // Collect pre-existing floating items from HTML
+        const existingItems = document.querySelectorAll('.floating-item');
+        existingItems.forEach(item => {
+            this.mediaItems.push(item);
+            this.setupItemEventHandlers(item);
+            this.setRandomPosition(item);
+        });
+        
+        console.log(`🔍 Found ${existingItems.length} pre-existing media items`);
+    }
+
+    setupItemEventHandlers(item) {
+        // Add click handler
+        item.addEventListener('click', () => {
+            window.birthdayApp.handleMediaClick(item);
+        });
+    }
+
+    setupFloatingAnimation() {
+        // Initialize floating animation for all items
+        if (window.floatingController) {
+            window.floatingController.collectMediaItems();
+            window.floatingController.setupRandomPositions();
+        }
     }
 
     createDemoElements() {
@@ -630,25 +651,30 @@ class MediaLoader {
     async tryLoadImage(imageName) {
         return new Promise((resolve) => {
             const img = new Image();
+            const fullPath = `assets/images/${imageName}`;
             
-            // Set a timeout to avoid hanging on missing files
+            // Increase timeout to 3 seconds for better loading
             const timeout = setTimeout(() => {
+                console.log(`⏰ Timeout loading ${fullPath}`);
                 resolve(false);
-            }, 1000);
+            }, 3000);
             
             img.onload = () => {
                 clearTimeout(timeout);
-                this.createImageElement(`assets/images/${imageName}`);
+                console.log(`✅ Successfully loaded ${fullPath}`);
+                this.createImageElement(fullPath);
                 this.loadedCount++;
                 resolve(true);
             };
             
-            img.onerror = () => {
+            img.onerror = (error) => {
                 clearTimeout(timeout);
+                console.log(`❌ Error loading ${fullPath}:`, error);
                 resolve(false);
             };
             
-            img.src = `assets/images/${imageName}`;
+            console.log(`🔄 Attempting to load ${fullPath}`);
+            img.src = fullPath;
         });
     }
 
@@ -678,9 +704,16 @@ class MediaLoader {
     }
 
     createImageElement(imagePath) {
+        // Check if this image already exists in HTML
+        const existingItem = document.querySelector(`[data-media="${imagePath}"]`);
+        if (existingItem) {
+            console.log(`⚠️ Image ${imagePath} already exists in HTML, skipping duplicate`);
+            return;
+        }
+        
         const container = document.getElementById('mediaContainer');
         const item = document.createElement('div');
-        item.className = 'floating-item photo-item';
+        item.className = 'floating-item photo-item js-loaded';
         item.setAttribute('data-media', imagePath);
         item.setAttribute('data-type', 'image');
         
@@ -694,9 +727,7 @@ class MediaLoader {
         this.mediaItems.push(item);
         
         // Add click handler
-        item.addEventListener('click', () => {
-            window.birthdayApp.handleMediaClick(item);
-        });
+        this.setupItemEventHandlers(item);
         
         // Set random position
         this.setRandomPosition(item);
