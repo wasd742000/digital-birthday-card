@@ -77,8 +77,10 @@
     </div>
 
     <!-- Audio (optional background music) -->
-    <audio id="backgroundMusic" loop>
+    <audio id="backgroundMusic" loop preload="auto">
         <source src="assets/audio/romantic-background.mp3" type="audio/mpeg">
+        <!-- Fallback message for browsers that don't support audio -->
+        <p>Your browser doesn't support audio playback.</p>
     </audio>
     
     <button class="music-toggle" id="musicToggle">🎵</button>

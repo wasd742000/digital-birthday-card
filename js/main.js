@@ -107,19 +107,53 @@ class BirthdayCardApp {
         const musicToggle = document.getElementById('musicToggle');
         const backgroundMusic = document.getElementById('backgroundMusic');
 
+        // Set initial volume
+        backgroundMusic.volume = 0.3;
+
+        // Add loading state indicator
+        backgroundMusic.addEventListener('loadstart', () => {
+            musicToggle.textContent = '⏳';
+            musicToggle.title = 'Loading music...';
+        });
+
+        backgroundMusic.addEventListener('canplaythrough', () => {
+            musicToggle.textContent = '🎵';
+            musicToggle.title = 'Click to play background music';
+        });
+
+        backgroundMusic.addEventListener('error', (e) => {
+            console.log('Audio loading error:', e);
+            musicToggle.textContent = '🎵';
+            musicToggle.style.opacity = '0.5';
+            musicToggle.title = 'Music not available';
+        });
+
         musicToggle.addEventListener('click', () => {
             if (this.isPlaying) {
                 backgroundMusic.pause();
                 musicToggle.textContent = '🎵';
                 musicToggle.style.opacity = '0.7';
+                musicToggle.title = 'Click to play music';
                 this.isPlaying = false;
             } else {
-                backgroundMusic.play().catch(e => {
-                    console.log('Music autoplay prevented by browser');
-                });
-                musicToggle.textContent = '🎶';
-                musicToggle.style.opacity = '1';
-                this.isPlaying = true;
+                // Try to play with better error handling
+                const playPromise = backgroundMusic.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        musicToggle.textContent = '🎶';
+                        musicToggle.style.opacity = '1';
+                        musicToggle.title = 'Click to pause music';
+                        this.isPlaying = true;
+                    }).catch(error => {
+                        console.log('Music autoplay prevented:', error);
+                        // Show user-friendly message
+                        this.showMusicMessage('Click the music button to enable background music! 🎵');
+                        musicToggle.textContent = '�';
+                        musicToggle.style.opacity = '0.7';
+                        this.isPlaying = false;
+                    });
+                }
             }
         });
 
@@ -127,8 +161,12 @@ class BirthdayCardApp {
         backgroundMusic.addEventListener('ended', () => {
             musicToggle.textContent = '🎵';
             musicToggle.style.opacity = '0.7';
+            musicToggle.title = 'Click to play music';
             this.isPlaying = false;
         });
+
+        // Preload audio
+        backgroundMusic.load();
     }
 
     setupTypewriterEffect() {
@@ -327,6 +365,41 @@ class BirthdayCardApp {
         
         console.log('Card exported:', cardData);
         return cardData;
+    }
+
+    showMusicMessage(message) {
+        // Create floating message for music feedback
+        const musicMessage = document.createElement('div');
+        musicMessage.className = 'floating-music-message';
+        musicMessage.textContent = message;
+        musicMessage.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(145deg, #f4f1e8, #e8dcc0);
+            border: 2px solid #8B4513;
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.2rem;
+            color: #8B4513;
+            box-shadow: 0 10px 25px rgba(139, 69, 19, 0.3);
+            z-index: 1500;
+            animation: slideInRight 0.5s ease-out;
+            max-width: 300px;
+        `;
+
+        document.body.appendChild(musicMessage);
+
+        // Remove after 4 seconds
+        setTimeout(() => {
+            musicMessage.style.animation = 'slideInRight 0.3s ease-out reverse';
+            setTimeout(() => {
+                if (musicMessage.parentNode) {
+                    musicMessage.parentNode.removeChild(musicMessage);
+                }
+            }, 300);
+        }, 4000);
     }
 }
 
