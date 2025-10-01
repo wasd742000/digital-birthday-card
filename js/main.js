@@ -110,6 +110,9 @@ class BirthdayCardApp {
         // Set initial volume
         backgroundMusic.volume = 0.3;
 
+        // Try autoplay when page loads
+        this.attemptAutoplay(backgroundMusic, musicToggle);
+
         // Add loading state indicator
         backgroundMusic.addEventListener('loadstart', () => {
             musicToggle.textContent = '⏳';
@@ -165,8 +168,55 @@ class BirthdayCardApp {
             this.isPlaying = false;
         });
 
+        // Handle successful play
+        backgroundMusic.addEventListener('play', () => {
+            this.isPlaying = true;
+            musicToggle.textContent = '🎶';
+            musicToggle.style.opacity = '1';
+            musicToggle.title = 'Click to pause music';
+        });
+
+        // Handle pause/stop
+        backgroundMusic.addEventListener('pause', () => {
+            this.isPlaying = false;
+            musicToggle.textContent = '🎵';
+            musicToggle.style.opacity = '0.7';
+            musicToggle.title = 'Click to play music';
+        });
+
         // Preload audio
         backgroundMusic.load();
+
+        // Attempt to autoplay
+        this.attemptAutoplay(backgroundMusic, musicToggle);
+    }
+
+    attemptAutoplay(audio, musicButton) {
+        // Try to autoplay the music when page loads
+        const playPromise = audio.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                // Autoplay successful
+                console.log('🎵 Background music started automatically!');
+                this.isPlaying = true;
+                musicButton.textContent = '🎶';
+                musicButton.style.opacity = '1';
+                musicButton.title = 'Click to pause music';
+            }).catch(error => {
+                // Autoplay blocked - this is normal in most browsers
+                console.log('Autoplay blocked by browser (normal behavior)');
+                this.isPlaying = false;
+                musicButton.textContent = '🎵';
+                musicButton.style.opacity = '0.7';
+                musicButton.title = 'Click to play background music';
+                
+                // Show a subtle message after page loads
+                setTimeout(() => {
+                    this.showMusicMessage('🎵 Click the music button to add romantic background music!');
+                }, 3000);
+            });
+        }
     }
 
     setupTypewriterEffect() {
@@ -479,7 +529,7 @@ class MediaLoader {
                     <rect width="100%" height="100%" fill="#d4c4a0"/>
                     <rect x="5" y="5" width="190" height="140" fill="none" stroke="#8B4513" stroke-width="2"/>
                     <path d="M 100 30 C 90 40, 90 60, 100 70 C 110 60, 110 40, 100 30 Z" fill="#8B4513" opacity="0.7"/>
-                    <text x="100" y="90" font-family="serif" font-size="14" text-anchor="middle" fill="#8B4513">💕</text>
+                    <text x="100" y="90" font-family="serif" font-size="14" text-anchor="middle" fill="#8B4513">♥</text>
                     <text x="100" y="120" font-family="serif" font-size="14" text-anchor="middle" fill="#8B4513">Demo Photo 3</text>
                     <text x="100" y="135" font-family="serif" font-size="10" text-anchor="middle" fill="#8B4513">Your love story!</text>
                 </svg>`),
