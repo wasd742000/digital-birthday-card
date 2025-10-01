@@ -1,0 +1,18 @@
+📸 PLACE YOUR PHOTOS HERE! 
+
+✨ AMAZING NEWS: You can use ANY filename you want!
+
+Examples that work perfectly:
+• our-first-date.jpg
+• vacation-beach.png  
+• IMG_001.jpeg
+• anniversary_dinner.webp
+• proposal-moment.gif
+• cute-selfie.jpg
+
+The system automatically detects ALL your photos!
+
+Supported formats: .jpg, .jpeg, .png, .webp, .gif
+Recommended size: 800x600 pixels (but any size works)
+
+Just drag and drop your photos into this folder! 💕

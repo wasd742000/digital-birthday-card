@@ -1,0 +1,16 @@
+<!-- Optional background music -->
+<!-- Add a romantic background song here -->
+<!-- Recommended format: MP3 -->
+<!-- Recommended: Soft, romantic instrumental music -->
+
+This file represents where you can place romantic-background.mp3
+- Use royalty-free music for public websites
+- Keep file size reasonable (under 10MB)
+- Soft instrumental or acoustic music works best
+- The music will loop and can be toggled by users
+
+Suggestions:
+- Classical piano pieces
+- Soft acoustic guitar
+- Romantic instrumentals
+- Nature sounds with light music

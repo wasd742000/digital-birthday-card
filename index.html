@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/vintage-theme.css">
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="vintage-background"></div>
+    <div class="paper-texture"></div>
+    
+    <!-- Floating Hearts -->
+    <div class="floating-hearts">
+        <div class="heart heart-1">💕</div>
+        <div class="heart heart-2">💖</div>
+        <div class="heart heart-3">💝</div>
+        <div class="heart heart-4">❤️</div>
+        <div class="heart heart-5">💗</div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Birthday Message -->
+        <div class="birthday-message">
+            <h1 class="main-title">Happy Birthday</h1>
+            <h2 class="subtitle">My Beautiful Love</h2>
+            <p class="romantic-message">
+                Another year of your amazing life, another year of our beautiful journey together.
+                Every moment with you feels like a precious memory worth treasuring forever.
+            </p>
+            <div class="date-stamp">October 2025</div>
+        </div>
+
+        <!-- Floating Media Container -->
+        <div class="floating-media-container" id="mediaContainer">
+            <!-- Media items will be automatically loaded from your assets folders -->
+            <!-- Just place your photos in assets/images/ and videos in assets/videos/ -->
+            <!-- Supported image formats: .jpg, .jpeg, .png, .webp -->
+            <!-- Supported video formats: .mp4, .webm, .mov -->
+        </div>
+
+        <!-- Hidden Love Notes -->
+        <div class="love-notes">
+            <div class="love-note" data-message="You make every day brighter! ☀️">
+                <span class="note-heart">💝</span>
+            </div>
+            <div class="love-note" data-message="Thank you for being my everything 💕">
+                <span class="note-heart">💖</span>
+            </div>
+            <div class="love-note" data-message="Forever and always, my love ❤️">
+                <span class="note-heart">💗</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for viewing media -->
+    <div class="modal-overlay" id="mediaModal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-media-container">
+                <img id="modalImage" class="modal-image" alt="Memory">
+                <video id="modalVideo" class="modal-video" controls>
+                    <source id="modalVideoSource" type="video/mp4">
+                </video>
+            </div>
+            <div class="modal-navigation">
+                <button class="nav-btn prev-btn">‹ Previous</button>
+                <button class="nav-btn next-btn">Next ›</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio (optional background music) -->
+    <audio id="backgroundMusic" loop>
+        <source src="assets/audio/romantic-background.mp3" type="audio/mpeg">
+    </audio>
+    
+    <button class="music-toggle" id="musicToggle">🎵</button>
+
+    <script src="js/floating-media.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
