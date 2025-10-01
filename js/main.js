@@ -345,11 +345,22 @@ class MediaLoader {
         // Add some demo floating elements to show how it works
         this.createDemoElements();
         
-        // Try to load real user files
+        // Load specific known images first (1.png through 14.png exist in your folder)
+        const knownImages = [];
+        for (let i = 1; i <= 14; i++) {
+            knownImages.push(`${i}.png`);
+        }
+        
+        // Load the known images
+        for (const imageName of knownImages) {
+            await this.tryLoadImage(imageName);
+        }
+        
+        // Try to load common user file patterns
         const imageNames = this.generateCommonNames();
         const videoNames = this.generateCommonVideoNames();
         
-        // Load images
+        // Load additional images
         for (const imageName of imageNames) {
             await this.tryLoadImage(imageName);
         }
@@ -440,7 +451,14 @@ class MediaLoader {
         const extensions = ['.jpg', '.jpeg', '.png', '.webp'];
         const prefixes = ['photo', 'img', 'image', 'pic', 'picture'];
         
-        // Generate numbered variations
+        // Generate simple numbered files (1.png, 2.jpg, etc.) - common pattern
+        for (let i = 1; i <= 20; i++) {
+            for (const ext of extensions) {
+                names.push(`${i}${ext}`);
+            }
+        }
+        
+        // Generate numbered variations with prefixes
         for (let i = 1; i <= 20; i++) {
             for (const prefix of prefixes) {
                 for (const ext of extensions) {
@@ -718,7 +736,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Service Worker registration for offline capability (optional)
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
+        navigator.serviceWorker.register('./sw.js')
             .then(registration => {
                 console.log('SW registered: ', registration);
             })

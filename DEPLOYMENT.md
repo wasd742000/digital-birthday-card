@@ -1,4 +1,10 @@
-# 🚀 Deployment Guide
+# 🚀 Deployment Guide - GITHUB PAGES READY!
+
+## ✅ Recent Fixes Applied
+- Fixed service worker paths for GitHub Pages
+- Added support for simple numbered image files (1.png, 2.jpg, etc.)
+- Added .nojekyll file for better GitHub Pages compatibility
+- All paths now use relative references
 
 ## Quick Setup (5 minutes!)
 
@@ -84,10 +90,17 @@ Once deployed, share the URL with:
 
 ## 🛠️ Troubleshooting
 
+### GitHub Pages Specific Issues
+- **Service Worker 404**: Fixed ✅ (paths now relative)
+- **Images not showing on GitHub Pages**: Fixed ✅ (supports numbered files like 1.png, 2.jpg)
+- **Path issues**: Fixed ✅ (all paths are now relative)
+- **Jekyll conflicts**: Fixed ✅ (.nojekyll file added)
+
 ### Images not showing?
 - Make sure images are in `assets/images/` folder
 - Supported formats: JPG, PNG, WebP, JPEG, GIF
 - **Any filename works now** - no specific naming required!
+- **Simple numbers work**: 1.png, 2.jpg, 3.webp, etc.
 - Check browser console (F12) for any error messages
 
 ### Videos not playing?
