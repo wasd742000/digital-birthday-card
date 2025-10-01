@@ -475,6 +475,13 @@ body {
     .love-note {
         font-size: 1.2rem;
     }
+    
+    .music-toggle {
+        width: 55px;
+        height: 55px;
+        top: 1.5rem;
+        right: 1.5rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -491,6 +498,6 @@ body {
         width: 50px;
         height: 50px;
         top: 1rem;
-        right: 1rem;
+        right: 0.5rem;
     }
 }
