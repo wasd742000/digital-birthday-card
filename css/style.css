@@ -105,6 +105,46 @@ body {
     background: rgba(255, 255, 255, 0.3);
 }
 
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: center;
+    background-color: #d4c4a0;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #5a4636;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    background-color: #d4c4a0;
+    padding: 1rem;
+    color: #5a4636;
+    font-family: 'Playfair Display', serif;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
 /* Floating Media */
 .floating-media-container {
     position: relative;
