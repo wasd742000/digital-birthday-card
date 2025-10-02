@@ -258,14 +258,26 @@ class BirthdayCardApp {
         });
     }
 
+    refreshMediaItems() {
+        this.mediaItems = Array.from(document.querySelectorAll('.floating-item'));
+        console.log('Media items refreshed:', this.mediaItems.length);
+    }
+
     handleMediaClick(mediaItem) {
+        // Ensure we have the latest media items
+        this.refreshMediaItems();
+        
         const mediaSrc = mediaItem.getAttribute('data-media');
         const mediaType = mediaItem.getAttribute('data-type');
         
         if (!mediaSrc) return;
 
-        // Find the index of clicked item
-        this.currentMediaIndex = this.mediaItems.indexOf(mediaItem);
+        // Find the index of clicked item by data-media attribute
+        this.currentMediaIndex = this.mediaItems.findIndex(item => 
+            item.getAttribute('data-media') === mediaSrc
+        );
+        
+        console.log('Current media index:', this.currentMediaIndex, 'Total items:', this.mediaItems.length);
         
         this.openModal(mediaSrc, mediaType);
         
