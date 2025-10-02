@@ -251,7 +251,7 @@ class BirthdayCardApp {
         
         // Add animation
         const modalContent = modal.querySelector('.modal-content');
-        modalContent.style.animation = 'modalFadeIn 0.3s ease-out';
+        modalContent.classList.add('modal-fade-in');
         
         // Prevent body scroll
         document.body.style.overflow = 'hidden';
@@ -439,6 +439,14 @@ class BirthdayCardApp {
             });
         });
     }
+}
+
+// Consolidate animation logic into reusable CSS classes
+function applyAnimation(element, animationClass) {
+    element.classList.add(animationClass);
+    element.addEventListener('animationend', () => {
+        element.classList.remove(animationClass);
+    }, { once: true });
 }
 
 // Automatic Media Loader
@@ -722,25 +730,28 @@ class MediaLoader {
             console.log(`⚠️ Image ${imagePath} already exists in HTML, skipping duplicate`);
             return;
         }
-        
+
         const container = document.getElementById('mediaContainer');
+        const fragment = document.createDocumentFragment(); // Use DocumentFragment for batch updates
+
         const item = document.createElement('div');
         item.className = 'floating-item photo-item js-loaded';
         item.setAttribute('data-media', imagePath);
         item.setAttribute('data-type', 'image');
-        
+
         item.innerHTML = `
             <div class="vintage-frame">
-                <img src="${imagePath}" alt="Our Memory" class="floating-photo">
+                <img src="${imagePath}" alt="Our Memory" class="floating-photo" loading="lazy">
             </div>
         `;
-        
-        container.appendChild(item);
+
+        fragment.appendChild(item);
+        container.appendChild(fragment);
         this.mediaItems.push(item);
-        
+
         // Add click handler
         this.setupItemEventHandlers(item);
-        
+
         // Set random position
         this.setRandomPosition(item);
     }
@@ -843,6 +854,29 @@ class MediaLoader {
         container.appendChild(message);
     }
 }
+
+// Refactor event handling to use delegation
+function delegateEvent(parentSelector, eventType, childSelector, handler) {
+    const parent = document.querySelector(parentSelector);
+    if (!parent) return;
+
+    parent.addEventListener(eventType, (event) => {
+        const potentialElements = parent.querySelectorAll(childSelector);
+        const target = event.target;
+
+        for (let element of potentialElements) {
+            if (element === target || element.contains(target)) {
+                handler.call(target, event);
+                break;
+            }
+        }
+    });
+}
+
+// Example: Delegate click events for media items
+delegateEvent('.media-container', 'click', '.floating-item', function(event) {
+    window.birthdayApp.handleMediaClick(this);
+});
 
 // Utility Functions
 const utils = {

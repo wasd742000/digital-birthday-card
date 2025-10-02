@@ -42,49 +42,29 @@ class FloatingMediaController {
         });
     }
 
+    // Optimize floating animations
     animateFloating(item, index) {
         const floatData = {
             x: parseFloat(item.style.left) || Math.random() * 80 + 10,
             y: parseFloat(item.style.top) || Math.random() * 70 + 15,
             vx: (Math.random() - 0.5) * this.animationSpeed,
             vy: (Math.random() - 0.5) * this.animationSpeed,
-            rotation: 0,
-            rotationSpeed: (Math.random() - 0.5) * 0.5
         };
 
-        const animate = () => {
-            // Update position
+        // Use requestAnimationFrame for smoother animations
+        const updatePosition = () => {
             floatData.x += floatData.vx;
             floatData.y += floatData.vy;
-            floatData.rotation += floatData.rotationSpeed;
 
-            // Bounce off edges with some randomness
-            if (floatData.x <= 5 || floatData.x >= 85) {
-                floatData.vx *= -1;
-                floatData.vx += (Math.random() - 0.5) * 0.2;
-            }
-            if (floatData.y <= 10 || floatData.y >= 80) {
-                floatData.vy *= -1;
-                floatData.vy += (Math.random() - 0.5) * 0.2;
-            }
+            // Boundary checks
+            if (floatData.x < 10 || floatData.x > 90) floatData.vx *= -1;
+            if (floatData.y < 15 || floatData.y > 85) floatData.vy *= -1;
 
-            // Keep velocities in reasonable range
-            floatData.vx = Math.max(-1, Math.min(1, floatData.vx));
-            floatData.vy = Math.max(-1, Math.min(1, floatData.vy));
-
-            // Apply position and rotation
-            item.style.left = `${floatData.x}%`;
-            item.style.top = `${floatData.y}%`;
-            item.style.transform = `rotate(${floatData.rotation}deg)`;
-
-            // Add subtle breathing effect
-            const breathe = 1 + Math.sin(Date.now() * 0.001 + index) * 0.05;
-            item.style.filter = `brightness(${breathe})`;
-
-            requestAnimationFrame(animate);
+            item.style.transform = `translate(${floatData.x}vw, ${floatData.y}vh)`;
+            requestAnimationFrame(updatePosition);
         };
 
-        animate();
+        requestAnimationFrame(updatePosition);
     }
 
     // Method to add new media items dynamically
