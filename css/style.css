@@ -1,10 +1,11 @@
-/* CSS Variables for Consistency */
+/* Updated CSS Variables for Retro and Vintage Vibe */
 :root {
-    --primary-color: #8B4513;
-    --secondary-color: #D4C4A0;
-    --background-color: #F4F1E8;
-    --text-color: #5A4636;
-    --hover-color: #A0522D;
+    --primary-color: #8B4513; /* SaddleBrown */
+    --secondary-color: #DAA520; /* Goldenrod */
+    --background-color: #F5F5DC; /* Beige */
+    --text-color: #2F4F4F; /* Dark Slate Gray */
+    --hover-color: #CD853F; /* Peru */
+    --accent-color: #FF7F50; /* Coral */
     --border-radius: 8px;
     --transition-speed: 0.3s;
 }
@@ -20,8 +21,8 @@ body {
     font-family: 'Playfair Display', serif;
     overflow-x: hidden;
     min-height: 100vh;
-    background: linear-gradient(135deg, var(--background-color) 0%, #e8dcc0 50%, #d4c4a0 100%);
-    color: var(--text-color); /* Muted brown for text */
+    background: var(--background-color);
+    color: var(--text-color);
     position: relative;
 }
 
