@@ -651,6 +651,43 @@ body::before {
     object-fit: cover;
 }
 
+/* Countdown Timer Styles */
+.countdown-timer {
+    text-align: center;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid #ff69b4;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: 'Playfair Display', serif;
+}
+
+.countdown-timer h2 {
+    font-size: 2rem;
+    color: #ff1493;
+    margin-bottom: 10px;
+}
+
+.timer-display {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.timer-display span {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ff69b4;
+    padding: 5px 10px;
+    background: #fff;
+    border: 2px solid #ff1493;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .main-container {
