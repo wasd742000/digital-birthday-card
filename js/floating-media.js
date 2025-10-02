@@ -49,12 +49,16 @@ class FloatingMediaController {
             y: parseFloat(item.style.top) || Math.random() * 70 + 15,
             vx: (Math.random() - 0.5) * this.animationSpeed,
             vy: (Math.random() - 0.5) * this.animationSpeed,
+            oscillationOffset: Math.random() * Math.PI * 2 // Randomize oscillation phase
         };
 
         // Use requestAnimationFrame for smoother animations
         const updatePosition = () => {
-            floatData.x += floatData.vx;
-            floatData.y += floatData.vy;
+            const time = performance.now() / 1000; // Time in seconds
+
+            // Add oscillation effect to simulate tethered movement
+            floatData.x += floatData.vx + Math.sin(time + floatData.oscillationOffset) * 0.2;
+            floatData.y += floatData.vy + Math.cos(time + floatData.oscillationOffset) * 0.2;
 
             // Boundary checks
             if (floatData.x < 10 || floatData.x > 90) floatData.vx *= -1;
