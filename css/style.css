@@ -369,6 +369,41 @@ body {
 .love-note:nth-child(2) { bottom: 30%; left: 5%; animation-delay: 2s; }
 .love-note:nth-child(3) { top: 70%; right: 10%; animation-delay: 4s; }
 
+/* Love Notes Styles */
+.love-notes-container {
+    text-align: center;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255, 240, 245, 0.8);
+    border: 2px solid #ff69b4;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: 'Playfair Display', serif;
+}
+
+.love-notes-container h2 {
+    font-size: 2rem;
+    color: #ff1493;
+    margin-bottom: 10px;
+}
+
+.hidden-notes {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.hidden-notes .note {
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.hidden-notes .note:hover {
+    transform: scale(1.2);
+}
+
 /* Modal */
 .modal-overlay {
     display: none;
