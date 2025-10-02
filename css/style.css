@@ -1,3 +1,14 @@
+/* CSS Variables for Consistency */
+:root {
+    --primary-color: #8B4513;
+    --secondary-color: #D4C4A0;
+    --background-color: #F4F1E8;
+    --text-color: #5A4636;
+    --hover-color: #A0522D;
+    --border-radius: 8px;
+    --transition-speed: 0.3s;
+}
+
 /* Main Styles */
 * {
     margin: 0;
@@ -9,8 +20,8 @@ body {
     font-family: 'Playfair Display', serif;
     overflow-x: hidden;
     min-height: 100vh;
-    background: linear-gradient(135deg, #f4f1e8 0%, #e8dcc0 50%, #d4c4a0 100%);
-    color: #5a4636; /* Muted brown for text */
+    background: linear-gradient(135deg, var(--background-color) 0%, #e8dcc0 50%, #d4c4a0 100%);
+    color: var(--text-color); /* Muted brown for text */
     position: relative;
 }
 
@@ -70,7 +81,7 @@ body {
     font-family: 'Dancing Script', cursive;
     font-size: clamp(3rem, 8vw, 6rem);
     font-weight: 700;
-    color: #8B4513;
+    color: var(--primary-color);
     text-shadow: 2px 2px 4px rgba(139, 69, 19, 0.3);
     margin-bottom: 1rem;
     animation: titleGlow 3s ease-in-out infinite alternate;
@@ -97,8 +108,8 @@ body {
 .date-stamp {
     font-family: 'Dancing Script', cursive;
     font-size: 1.2rem;
-    color: #8B4513;
-    border: 2px solid #8B4513;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
     display: inline-block;
     padding: 0.5rem 1rem;
     border-radius: 10px;
@@ -109,7 +120,7 @@ body {
 .navbar {
     display: flex;
     justify-content: center;
-    background-color: #d4c4a0;
+    background-color: var(--secondary-color);
     padding: 1rem;
     position: sticky;
     top: 0;
@@ -124,7 +135,7 @@ body {
 
 .navbar a {
     text-decoration: none;
-    color: #5a4636;
+    color: var(--text-color);
     font-family: 'Playfair Display', serif;
     font-size: 1.2rem;
 }
@@ -136,9 +147,9 @@ body {
 /* Footer */
 .footer {
     text-align: center;
-    background-color: #d4c4a0;
+    background-color: var(--secondary-color);
     padding: 1rem;
-    color: #5a4636;
+    color: var(--text-color);
     font-family: 'Playfair Display', serif;
     position: relative;
     bottom: 0;
@@ -157,7 +168,7 @@ body {
     position: absolute;
     pointer-events: all;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
     animation-duration: 8s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
@@ -172,7 +183,7 @@ body {
 .vintage-frame {
     padding: 15px;
     background: linear-gradient(145deg, #f4f1e8, #e8dcc0);
-    border: 3px solid #8B4513;
+    border: 3px solid var(--primary-color);
     border-radius: 10px;
     box-shadow: 
         0 8px 25px rgba(139, 69, 19, 0.3),
@@ -213,6 +224,14 @@ body {
     color: rgba(255, 255, 255, 0.9);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     pointer-events: none;
+}
+
+/* Ensure videos match the size of images in the carousel */
+.floating-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--border-radius);
 }
 
 /* Floating Animations */
@@ -299,7 +318,7 @@ body {
     cursor: pointer;
     font-size: 1.5rem;
     opacity: 0.7;
-    transition: all 0.3s ease;
+    transition: all var(--transition-speed) ease;
     animation: noteFloat 4s ease-in-out infinite;
 }
 
@@ -334,7 +353,7 @@ body {
     max-width: 90vw;
     max-height: 90vh;
     background: linear-gradient(145deg, #f4f1e8, #e8dcc0);
-    border: 5px solid #8B4513;
+    border: 5px solid var(--primary-color);
     border-radius: 20px;
     padding: 2rem;
     box-shadow: 0 20px 60px rgba(139, 69, 19, 0.5);
@@ -355,7 +374,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: all var(--transition-speed) ease;
 }
 
 .modal-close:hover {
@@ -390,7 +409,7 @@ body {
     font-family: 'Playfair Display', serif;
     font-size: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all var(--transition-speed) ease;
 }
 
 .nav-btn:hover {
@@ -413,7 +432,7 @@ body {
     border-radius: 50%;
     font-size: 1.5rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all var(--transition-speed) ease;
     box-shadow: 0 5px 15px rgba(139, 69, 19, 0.3);
 }
 
@@ -449,8 +468,8 @@ p, li {
 /* CSS Filters for Images and Videos */
 img, video {
     filter: sepia(0.3) grayscale(0.2) contrast(1.1);
-    border: 1px solid #d4c4a0; /* Subtle border */
-    border-radius: 5px;
+    border: 1px solid var(--secondary-color);
+    border-radius: var(--border-radius);
 }
 
 /* Subtle Animations */
@@ -628,6 +647,11 @@ body::before {
         height: 55px;
         top: 1.5rem;
         right: 1.5rem;
+    }
+
+    .carousel-container {
+        flex-direction: column;
+        align-items: center;
     }
 }
 
