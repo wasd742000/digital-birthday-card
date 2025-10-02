@@ -14,6 +14,7 @@ class BirthdayCardApp {
         this.setupMusic();
         this.setupFadeInEffect();
         this.initializeMediaLoader();
+        this.setupScrollToTopButton();
         
         console.log('Birthday Card App initialized! 🎂❤️');
     }
@@ -449,6 +450,41 @@ class BirthdayCardApp {
                 }
             }, 300);
         }, 4000);
+    }
+
+    setupScrollToTopButton() {
+        const scrollToTopButton = document.createElement('button');
+        scrollToTopButton.classList.add('scroll-to-top');
+        scrollToTopButton.innerHTML = '⬆';
+        document.body.appendChild(scrollToTopButton);
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTopButton.classList.add('show');
+            } else {
+                scrollToTopButton.classList.remove('show');
+            }
+        });
+
+        scrollToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    setupLightboxEffect() {
+        const mediaItems = document.querySelectorAll('.floating-photo');
+        mediaItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const lightbox = document.createElement('div');
+                lightbox.classList.add('lightbox');
+                lightbox.innerHTML = `<img src="${item.src}" alt="${item.alt}" class="lightbox-image">`;
+                document.body.appendChild(lightbox);
+
+                lightbox.addEventListener('click', () => {
+                    document.body.removeChild(lightbox);
+                });
+            });
+        });
     }
 }
 

@@ -606,3 +606,38 @@ body::before {
         overflow-x: hidden;
     }
 }
+
+/* Hover Effects for Floating Media */
+.floating-photo:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover Effects for Floating Hearts */
+.heart:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: #d4c4a0;
+    color: #5a4636;
+    border: none;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.scroll-to-top.show {
+    display: flex;
+}
