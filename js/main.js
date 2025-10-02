@@ -26,26 +26,28 @@ class BirthdayCardApp {
     }
 
     setupEventListeners() {
-        // Media item clicks
         document.addEventListener('click', (e) => {
-            const mediaItem = e.target.closest('.floating-item');
+            const target = e.target;
+
+            // Handle media item clicks
+            const mediaItem = target.closest('.floating-item');
             if (mediaItem) {
                 this.handleMediaClick(mediaItem);
+                return;
             }
-        });
 
-        // Love note clicks
-        document.addEventListener('click', (e) => {
-            const loveNote = e.target.closest('.love-note');
+            // Handle love note clicks
+            const loveNote = target.closest('.love-note');
             if (loveNote) {
                 this.handleLoveNoteClick(loveNote);
+                return;
             }
         });
 
-        // Keyboard navigation
+        // Keyboard navigation for modal
         document.addEventListener('keydown', (e) => {
             if (document.getElementById('mediaModal').style.display === 'block') {
-                switch(e.key) {
+                switch (e.key) {
                     case 'Escape':
                         this.closeModal();
                         break;
@@ -59,10 +61,18 @@ class BirthdayCardApp {
             }
         });
 
-        // Window resize handler
-        window.addEventListener('resize', () => {
+        // Window resize handler with debounce
+        window.addEventListener('resize', this.debounce(() => {
             this.handleResize();
-        });
+        }, 200));
+    }
+
+    debounce(func, wait) {
+        let timeout;
+        return function (...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
     }
 
     setupModal() {
@@ -111,79 +121,8 @@ class BirthdayCardApp {
         // Set initial volume
         backgroundMusic.volume = 0.3;
 
-        // Try autoplay when page loads
-        this.attemptAutoplay(backgroundMusic, musicToggle);
-
-        // Add loading state indicator
-        backgroundMusic.addEventListener('loadstart', () => {
-            musicToggle.textContent = '⏳';
-            musicToggle.title = 'Loading music...';
-        });
-
-        backgroundMusic.addEventListener('canplaythrough', () => {
-            musicToggle.textContent = '🎵';
-            musicToggle.title = 'Click to play background music';
-        });
-
-        backgroundMusic.addEventListener('error', (e) => {
-            console.log('Audio loading error:', e);
-            musicToggle.textContent = '🎵';
-            musicToggle.style.opacity = '0.5';
-            musicToggle.title = 'Music not available';
-        });
-
-        musicToggle.addEventListener('click', () => {
-            if (this.isPlaying) {
-                backgroundMusic.pause();
-                musicToggle.textContent = '🎵';
-                musicToggle.style.opacity = '0.7';
-                musicToggle.title = 'Click to play music';
-                this.isPlaying = false;
-            } else {
-                // Try to play with better error handling
-                const playPromise = backgroundMusic.play();
-                
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        musicToggle.textContent = '🎶';
-                        musicToggle.style.opacity = '1';
-                        musicToggle.title = 'Click to pause music';
-                        this.isPlaying = true;
-                    }).catch(error => {
-                        console.log('Music autoplay prevented:', error);
-                        // Show user-friendly message
-                        this.showMusicMessage('Click the music button to enable background music! 🎵');
-                        musicToggle.textContent = '�';
-                        musicToggle.style.opacity = '0.7';
-                        this.isPlaying = false;
-                    });
-                }
-            }
-        });
-
-        // Handle music end
-        backgroundMusic.addEventListener('ended', () => {
-            musicToggle.textContent = '🎵';
-            musicToggle.style.opacity = '0.7';
-            musicToggle.title = 'Click to play music';
-            this.isPlaying = false;
-        });
-
-        // Handle successful play
-        backgroundMusic.addEventListener('play', () => {
-            this.isPlaying = true;
-            musicToggle.textContent = '🎶';
-            musicToggle.style.opacity = '1';
-            musicToggle.title = 'Click to pause music';
-        });
-
-        // Handle pause/stop
-        backgroundMusic.addEventListener('pause', () => {
-            this.isPlaying = false;
-            musicToggle.textContent = '🎵';
-            musicToggle.style.opacity = '0.7';
-            musicToggle.title = 'Click to play music';
-        });
+        // Add event listeners for music states
+        this.addMusicEventListeners(backgroundMusic, musicToggle);
 
         // Preload audio
         backgroundMusic.load();
@@ -192,31 +131,45 @@ class BirthdayCardApp {
         this.attemptAutoplay(backgroundMusic, musicToggle);
     }
 
-    attemptAutoplay(audio, musicButton) {
-        // Try to autoplay the music when page loads
-        const playPromise = audio.play();
-        
-        if (playPromise !== undefined) {
-            playPromise.then(() => {
-                // Autoplay successful
-                console.log('🎵 Background music started automatically!');
+    addMusicEventListeners(audio, toggleButton) {
+        audio.addEventListener('loadstart', () => this.updateMusicToggle(toggleButton, '⏳', 'Loading music...', 0.7));
+        audio.addEventListener('canplaythrough', () => this.updateMusicToggle(toggleButton, '🎵', 'Click to play background music', 1));
+        audio.addEventListener('error', (e) => this.handleMusicError(e, toggleButton));
+        audio.addEventListener('ended', () => this.updateMusicToggle(toggleButton, '🎵', 'Click to play music', 0.7));
+        audio.addEventListener('play', () => this.updateMusicToggle(toggleButton, '🎶', 'Click to pause music', 1));
+        audio.addEventListener('pause', () => this.updateMusicToggle(toggleButton, '🎵', 'Click to play music', 0.7));
+
+        toggleButton.addEventListener('click', () => this.toggleMusicPlayback(audio, toggleButton));
+    }
+
+    updateMusicToggle(button, text, title, opacity) {
+        button.textContent = text;
+        button.title = title;
+        button.style.opacity = opacity;
+    }
+
+    handleMusicError(error, toggleButton) {
+        console.log('Audio loading error:', error);
+        this.updateMusicToggle(toggleButton, '🎵', 'Music not available', 0.5);
+    }
+
+    toggleMusicPlayback(audio, toggleButton) {
+        if (this.isPlaying) {
+            audio.pause();
+            this.isPlaying = false;
+        } else {
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    this.isPlaying = true;
+                }).catch((error) => {
+                    console.log('Music autoplay prevented:', error);
+                    this.showMusicMessage('Click the music button to enable background music! 🎵');
+                    this.updateMusicToggle(toggleButton, '🎵', 'Click to play music', 0.7);
+                });
+            } else {
                 this.isPlaying = true;
-                musicButton.textContent = '🎶';
-                musicButton.style.opacity = '1';
-                musicButton.title = 'Click to pause music';
-            }).catch(error => {
-                // Autoplay blocked - this is normal in most browsers
-                console.log('Autoplay blocked by browser (normal behavior)');
-                this.isPlaying = false;
-                musicButton.textContent = '🎵';
-                musicButton.style.opacity = '0.7';
-                musicButton.title = 'Click to play background music';
-                
-                // Show a subtle message after page loads
-                setTimeout(() => {
-                    this.showMusicMessage('🎵 Click the music button to add romantic background music!');
-                }, 3000);
-            });
+            }
         }
     }
 
@@ -499,17 +452,17 @@ class MediaLoader {
 
     async loadAllMedia() {
         console.log('🎨 Loading your photos and videos...');
-        
+
         // First, collect any existing floating items from HTML
         this.collectExistingItems();
-        
+
         // Add some demo floating elements to show how it works
         this.createDemoElements();
-        
-        // Load the 14 specific images via JavaScript (as backup)
-        console.log('📸 Loading numbered images 1.png to 14.png...');
-        
-        for (let i = 1; i <= 14; i++) {
+
+        // Load the first 6 specific images via JavaScript
+        console.log('📸 Loading numbered images 1.png to 6.png...');
+
+        for (let i = 1; i <= 6; i++) {
             const imageName = `${i}.png`;
             const success = await this.tryLoadImage(imageName);
             if (success) {
@@ -518,7 +471,7 @@ class MediaLoader {
                 console.log(`❌ Failed to load ${imageName}`);
             }
         }
-        
+
         console.log(`📸 Total media items: ${this.mediaItems.length}`);
         
         // Setup floating animation for all items
@@ -534,12 +487,15 @@ class MediaLoader {
         // Collect pre-existing floating items from HTML
         const existingItems = document.querySelectorAll('.floating-item');
         existingItems.forEach(item => {
-            this.mediaItems.push(item);
-            this.setupItemEventHandlers(item);
-            this.setRandomPosition(item);
+            const mediaSrc = item.getAttribute('data-media');
+            if (mediaSrc && /assets\/images\/(1|2|3|4|5|6)\.png$/.test(mediaSrc)) {
+                this.mediaItems.push(item);
+                this.setupItemEventHandlers(item);
+                this.setRandomPosition(item);
+            }
         });
-        
-        console.log(`🔍 Found ${existingItems.length} pre-existing media items`);
+
+        console.log(`🔍 Found ${this.mediaItems.length} pre-existing media items within the specified range`);
     }
 
     setupItemEventHandlers(item) {
@@ -553,7 +509,21 @@ class MediaLoader {
         // Initialize floating animation for all items
         if (window.floatingController) {
             window.floatingController.collectMediaItems();
-            window.floatingController.setupRandomPositions();
+
+            // Apply smooth animations
+            window.floatingController.mediaItems.forEach((item) => {
+                item.style.transition = 'transform 2s ease-in-out, top 2s ease-in-out, left 2s ease-in-out';
+            });
+
+            // Adjust animation settings for mobile
+            const isMobile = window.innerWidth <= 768;
+            window.floatingController.mediaItems.forEach((item) => {
+                const range = isMobile ? 10 : 20; // Smaller range for mobile
+                const randomX = Math.random() * range - range / 2;
+                const randomY = Math.random() * range - range / 2;
+
+                item.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            });
         }
     }
 
@@ -685,6 +655,13 @@ class MediaLoader {
 
     async tryLoadImage(imageName) {
         return new Promise((resolve) => {
+            // Restrict to specific images (1.png to 6.png)
+            if (!/^([1-6])\.png$/.test(imageName)) {
+                console.log(`⛔ Skipping ${imageName} as it is not in the allowed range (1.png to 6.png)`);
+                resolve(false);
+                return;
+            }
+
             const img = new Image();
             const fullPath = `assets/images/${imageName}`;
             
@@ -891,19 +868,6 @@ const utils = {
             "You're my sunshine! ☀️"
         ];
         return messages[Math.floor(Math.random() * messages.length)];
-    },
-
-    // Debounce function for performance
-    debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
     }
 };
 
