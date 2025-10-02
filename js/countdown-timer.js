@@ -39,3 +39,38 @@ const countdownTimer = () => {
 
 // Initialize the countdown timer
 countdownTimer();
+
+function adjustCountdownTimerForSmallScreens() {
+    const timerElement = document.querySelector('.countdown-timer');
+    const screenWidth = window.innerWidth;
+    if (screenWidth <= 768) {
+        timerElement.style.fontSize = '14px';
+        timerElement.style.padding = '10px';
+    } else {
+        timerElement.style.fontSize = '';
+        timerElement.style.padding = '';
+    }
+}
+
+function adjustCountdownTextForSmallScreens() {
+    const countdownTextElements = document.querySelectorAll('.countdown-timer span');
+    const screenWidth = window.innerWidth;
+    countdownTextElements.forEach(element => {
+        if (screenWidth <= 768) {
+            element.style.display = 'block';
+            element.style.textAlign = 'center';
+            element.style.fontSize = '12px';
+        } else {
+            element.style.display = '';
+            element.style.textAlign = '';
+            element.style.fontSize = '';
+        }
+    });
+}
+
+window.addEventListener('resize', () => {
+    adjustCountdownTimerForSmallScreens();
+    adjustCountdownTextForSmallScreens();
+});
+adjustCountdownTimerForSmallScreens();
+adjustCountdownTextForSmallScreens();

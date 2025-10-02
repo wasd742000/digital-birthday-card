@@ -245,3 +245,17 @@ document.addEventListener('DOMContentLoaded', () => {
     
     console.log('Floating media controllers initialized');
 });
+
+function adjustFloatingMediaForSmallScreens() {
+    const floatingElements = document.querySelectorAll('.floating-media');
+    floatingElements.forEach(element => {
+        const screenWidth = window.innerWidth;
+        if (screenWidth <= 768) {
+            element.style.position = 'relative';
+            element.style.margin = '10px auto';
+        }
+    });
+}
+
+window.addEventListener('resize', adjustFloatingMediaForSmallScreens);
+adjustFloatingMediaForSmallScreens();

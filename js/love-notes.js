@@ -75,5 +75,12 @@ loveNotes.forEach((note, index) => {
     });
 });
 
-// Hide the modal and its related functionality
-modal.style.display = 'none';
+// Define the modal element
+const modal = document.querySelector('.modal');
+
+if (modal) {
+  // Hide the modal and its related functionality
+  modal.style.display = 'none';
+} else {
+  console.warn('Modal element not found. Ensure it exists in the HTML.');
+}

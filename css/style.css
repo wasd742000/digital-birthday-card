@@ -723,7 +723,41 @@ body::before {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Touch-Friendly Enhancements */
+button, a {
+    padding: 12px 20px;
+    font-size: 16px;
+    touch-action: manipulation;
+}
+
+/* Ensure sufficient spacing between interactive elements */
+button, a {
+    margin: 10px 0;
+}
+
 /* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    img, video {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .floating-media {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
 @media (max-width: 768px) {
     .main-container {
         padding: 1rem;
