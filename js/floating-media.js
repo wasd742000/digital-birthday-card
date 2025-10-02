@@ -20,8 +20,8 @@ class FloatingMediaController {
     setupRandomPositions() {
         this.mediaItems.forEach((item, index) => {
             // Create more natural starting positions
-            const startX = Math.random() * 80 + 10; // 10% to 90%
-            const startY = Math.random() * 70 + 15; // 15% to 85%
+            const startX = Math.random() * 40 + 5; // Maximally adjusted to move far left (5% to 45%)
+            const startY = Math.random() * 30 + 5; // Maximally adjusted to move far up (5% to 35%)
             
             item.style.left = `${startX}%`;
             item.style.top = `${startY}%`;
@@ -45,10 +45,10 @@ class FloatingMediaController {
     // Optimize floating animations
     animateFloating(item, index) {
         const floatData = {
-            x: parseFloat(item.style.left) || Math.random() * 80 + 10,
-            y: parseFloat(item.style.top) || Math.random() * 70 + 15,
-            vx: (Math.random() - 0.5) * this.animationSpeed,
-            vy: (Math.random() - 0.5) * this.animationSpeed,
+            x: parseFloat(item.style.left) || Math.random() * 50 + 5,
+            y: parseFloat(item.style.top) || Math.random() * 40 + 5,
+            vx: (Math.random() - 0.5) * this.animationSpeed * 0.3, // Reduced speed
+            vy: (Math.random() - 0.5) * this.animationSpeed * 0.3, // Restored vertical movement
             oscillationOffset: Math.random() * Math.PI * 2 // Randomize oscillation phase
         };
 
@@ -56,13 +56,13 @@ class FloatingMediaController {
         const updatePosition = () => {
             const time = performance.now() / 1000; // Time in seconds
 
-            // Add oscillation effect to simulate tethered movement
-            floatData.x += floatData.vx + Math.sin(time + floatData.oscillationOffset) * 0.2;
-            floatData.y += floatData.vy + Math.cos(time + floatData.oscillationOffset) * 0.2;
+            // Add subtle oscillation effect to simulate tethered movement
+            floatData.x += floatData.vx + Math.sin(time + floatData.oscillationOffset) * 0.1; // Reduced oscillation
+            floatData.y += floatData.vy + Math.cos(time + floatData.oscillationOffset) * 0.1; // Reduced oscillation
 
             // Boundary checks
-            if (floatData.x < 10 || floatData.x > 90) floatData.vx *= -1;
-            if (floatData.y < 15 || floatData.y > 85) floatData.vy *= -1;
+            if (floatData.x < 5 || floatData.x > 45) floatData.vx *= -1; // Maximally restricted horizontal boundaries
+            if (floatData.y < 5 || floatData.y > 35) floatData.vy *= -1; // Maximally restricted vertical boundaries
 
             item.style.transform = `translate(${floatData.x}vw, ${floatData.y}vh)`;
             requestAnimationFrame(updatePosition);
@@ -114,8 +114,8 @@ class FloatingMediaController {
         this.mediaItems.push(newItem);
         
         // Set initial position and start animation
-        const startX = Math.random() * 80 + 10;
-        const startY = Math.random() * 70 + 15;
+        const startX = Math.random() * 40 + 30; // Centered horizontally (30% to 70%)
+        const startY = 50; // Fixed vertical position
         newItem.style.left = `${startX}%`;
         newItem.style.top = `${startY}%`;
         
