@@ -10,6 +10,7 @@ body {
     overflow-x: hidden;
     min-height: 100vh;
     background: linear-gradient(135deg, #f4f1e8 0%, #e8dcc0 50%, #d4c4a0 100%);
+    color: #5a4636; /* Muted brown for text */
     position: relative;
 }
 
@@ -379,6 +380,64 @@ body {
 .music-toggle:hover {
     transform: scale(1.1);
     box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4);
+}
+
+/* Updated Color Palette */
+body {
+    background: linear-gradient(135deg, #f4f1e8 0%, #e8dcc0 50%, #d4c4a0 100%);
+    color: #5a4636; /* Muted brown for text */
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Georgia', serif;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+p, li {
+    font-family: 'Courier New', monospace;
+    line-height: 1.6;
+}
+
+/* Borders and Frames */
+.frame {
+    border: 2px dashed #8b4513; /* Dashed border with muted brown */
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+/* CSS Filters for Images and Videos */
+img, video {
+    filter: sepia(0.3) grayscale(0.2) contrast(1.1);
+    border: 1px solid #d4c4a0; /* Subtle border */
+    border-radius: 5px;
+}
+
+/* Subtle Animations */
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.floating-element {
+    animation: fadeInOut 5s infinite;
+}
+
+/* Textures and Patterns */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('assets/images/noise-texture.png'); /* Add a noise texture */
+    opacity: 0.2;
+    z-index: -1;
 }
 
 /* Demo Elements Styling */

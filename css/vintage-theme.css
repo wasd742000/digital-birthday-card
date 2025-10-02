@@ -147,26 +147,6 @@
     ) 4;
 }
 
-/* Typewriter Effect */
-@keyframes typewriter {
-    from { width: 0; }
-    to { width: 100%; }
-}
-
-@keyframes blink {
-    50% { border-color: transparent; }
-}
-
-.typewriter {
-    overflow: hidden;
-    border-right: 2px solid #8B4513;
-    white-space: nowrap;
-    margin: 0 auto;
-    animation: 
-        typewriter 4s steps(40, end),
-        blink 0.75s step-end infinite;
-}
-
 /* Polaroid Effect */
 .polaroid-effect {
     background: white;

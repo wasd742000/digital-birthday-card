@@ -12,7 +12,7 @@ class BirthdayCardApp {
         this.setupModal();
         this.setupLoveNotes();
         this.setupMusic();
-        this.setupTypewriterEffect();
+        this.setupFadeInEffect();
         this.initializeMediaLoader();
         
         console.log('Birthday Card App initialized! 🎂❤️');
@@ -219,27 +219,14 @@ class BirthdayCardApp {
         }
     }
 
-    setupTypewriterEffect() {
+    setupFadeInEffect() {
         const message = document.querySelector('.romantic-message');
-        if (message && !message.classList.contains('typewriter-done')) {
-            const text = message.textContent;
-            message.textContent = '';
-            message.classList.add('typewriter');
-            
-            let i = 0;
-            const typeWriter = () => {
-                if (i < text.length) {
-                    message.textContent += text.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 50);
-                } else {
-                    message.classList.remove('typewriter');
-                    message.classList.add('typewriter-done');
-                }
-            };
-            
-            // Start typewriter effect after a delay
-            setTimeout(typeWriter, 2000);
+        if (message) {
+            message.style.opacity = 0;
+            message.style.transition = 'opacity 2s ease-in-out';
+            setTimeout(() => {
+                message.style.opacity = 1;
+            }, 2000); // Start fade-in after a delay
         }
     }
 
