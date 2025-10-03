@@ -1,31 +1,48 @@
 import React, { useState } from 'react';
+import './Carousel.css';
 
 function Carousel({ mediaItems }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const goToPrevious = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? mediaItems.length - 1 : prevIndex - 1));
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % mediaItems.length);
   };
 
-  const goToNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === mediaItems.length - 1 ? 0 : prevIndex + 1));
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + mediaItems.length) % mediaItems.length);
   };
 
   return (
-    <div className="carousel-container smooth">
-      <button className="carousel-button prev smooth" onClick={goToPrevious}>
-        &#8249;
+    <div className="carousel-container">
+      <button className="carousel-arrow left-arrow" onClick={prevSlide}>
+        &lt;
       </button>
-      <div className="carousel-item smooth" style={{ transition: 'transform 0.5s ease-in-out' }}>
-        {mediaItems[currentIndex].type === 'image' ? (
-          <img src={mediaItems[currentIndex].src} alt={mediaItems[currentIndex].alt} />
-        ) : (
-          <video src={mediaItems[currentIndex].src} controls />
-        )}
+      <div className="carousel-slide">
+        {mediaItems.map((item, index) => (
+          <div
+            key={index}
+            className={`carousel-item ${index === currentIndex ? 'active' : ''}`}
+          >
+            {item.type === 'image' ? (
+              <img src={item.src} alt={item.alt} />
+            ) : (
+              <video src={item.src} controls />
+            )}
+          </div>
+        ))}
       </div>
-      <button className="carousel-button next smooth" onClick={goToNext}>
-        &#8250;
+      <button className="carousel-arrow right-arrow" onClick={nextSlide}>
+        &gt;
       </button>
+      <div className="carousel-indicators">
+        {mediaItems.map((_, index) => (
+          <button
+            key={index}
+            className={`indicator ${index === currentIndex ? 'active' : ''}`}
+            onClick={() => setCurrentIndex(index)}
+          />
+        ))}
+      </div>
     </div>
   );
 }

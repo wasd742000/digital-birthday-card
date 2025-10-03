@@ -31,7 +31,7 @@ function CountdownTimer() {
   }, []);
 
   return (
-    <div className="countdown-timer" id="countdownTimer">
+    <div className="countdown-timer visually-appealing" id="countdownTimer">
       <h2>Time Until Your Special Day:</h2>
       <div className="timer-display">
         <span>{timeLeft.days || '00'}</span> Days

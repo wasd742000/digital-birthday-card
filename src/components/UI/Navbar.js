@@ -2,12 +2,10 @@ import React from 'react';
 
 function Navbar() {
   return (
-    <nav className="navbar sticky smooth">
+    <nav className="navbar sticky transparent">
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#mediaContainer">Memories</a></li>
-        <li><a href="#carouselMemories" className="memories-journey">Memories of Journey</a></li>
-        <li><a href="#loveNotes" className="hidden-love-note">Hidden Love Notes</a></li>
+        <li><a href="#" aria-label="Home">Home</a></li>
+        <li><a href="#loveNotes" aria-label="Notes for you">Notes for you</a></li>
       </ul>
     </nav>
   );

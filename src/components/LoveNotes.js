@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './LoveNotes.css';
 
 function LoveNotes() {
   const [notes] = useState([
@@ -9,22 +10,22 @@ function LoveNotes() {
     'You are my everything.',
   ]);
 
-  const [visibleNoteIndex, setVisibleNoteIndex] = useState(null);
-
-  const toggleNoteVisibility = (index) => {
-    setVisibleNoteIndex(visibleNoteIndex === index ? null : index);
-  };
-
   return (
     <div className="love-notes-container">
-      <h2>Hidden Love Notes</h2>
+      <h2>Notes for you</h2>
       <ul className="love-notes-list">
         {notes.map((note, index) => (
           <li key={index} className="love-note-item">
-            <button onClick={() => toggleNoteVisibility(index)}>
-              {visibleNoteIndex === index ? 'Hide Note' : 'Show Note'}
-            </button>
-            {visibleNoteIndex === index && <p className="love-note-text">{note}</p>}
+            <div className="hidden-love-note">
+              <div className="hidden-love-note-inner">
+                <div className="hidden-love-note-front">
+                  <p>Check it out</p>
+                </div>
+                <div className="hidden-love-note-back">
+                  <p>{note}</p>
+                </div>
+              </div>
+            </div>
           </li>
         ))}
       </ul>

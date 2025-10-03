@@ -3,14 +3,22 @@ import './FloatingMedia.css'; // Import the CSS file for FloatingMedia
 import Modal from '../layout/Modal';
 
 function FloatingMedia() {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 
-  const handleImageClick = (src) => {
-    setSelectedImage(src);
+  const handleImageClick = (index) => {
+    setSelectedImageIndex(index);
   };
 
   const closeModal = () => {
-    setSelectedImage(null);
+    setSelectedImageIndex(null);
+  };
+
+  const nextImage = () => {
+    setSelectedImageIndex((prevIndex) => (prevIndex + 1) % mediaItems.length);
+  };
+
+  const prevImage = () => {
+    setSelectedImageIndex((prevIndex) => (prevIndex - 1 + mediaItems.length) % mediaItems.length);
   };
 
   const mediaItems = [
@@ -37,7 +45,7 @@ function FloatingMedia() {
           className="floating-item polaroid-effect"
           key={index}
           data-caption={item.alt}
-          onClick={() => handleImageClick(item.src)}
+          onClick={() => handleImageClick(index)}
         >
           <div className="vintage-frame vintage-border-ornate">
             <img
@@ -45,11 +53,22 @@ function FloatingMedia() {
               alt={item.alt}
               className="floating-photo sepia-filter"
               loading="lazy"
+              aria-label={`Floating media item ${index + 1}`}
             />
           </div>
         </div>
       ))}
-      {selectedImage && <Modal imageSrc={selectedImage} onClose={closeModal} />}
+      {selectedImageIndex !== null && (
+        <Modal
+          imageSrc={mediaItems[selectedImageIndex].src}
+          imageAlt={mediaItems[selectedImageIndex].alt}
+          onClose={closeModal}
+          onNext={nextImage}
+          onPrev={prevImage}
+          currentIndex={selectedImageIndex}
+          totalImages={mediaItems.length}
+        />
+      )}
     </div>
   );
 }

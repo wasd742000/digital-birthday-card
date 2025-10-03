@@ -1,0 +1,124 @@
+.celebration-message-container {
+  text-align: center;
+  background: linear-gradient(135deg, #ff6a88, #ff99ac);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  margin: 30px auto;
+  max-width: 700px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.celebration-header {
+  margin-bottom: 1.5rem;
+}
+
+.celebration-title {
+  font-family: 'Cursive', sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  animation: textGlow 2s infinite alternate;
+}
+
+.celebration-subtitle {
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #ffe4e1;
+}
+
+.celebration-content {
+  margin: 1.5rem 0;
+}
+
+.celebration-message {
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 20px;
+  line-height: 1.8;
+  background: linear-gradient(135deg, #ff6a88, #ff99ac); /* Softer pink gradient */
+}
+
+.celebration-wish {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  color: #ffe4e1;
+}
+
+.celebration-date {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+}
+
+/* Enhanced visuals for the Countdown Timer */
+.countdown-timer-wrapper {
+  margin-top: 2rem;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px dashed #fff;
+  border-radius: 10px;
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+
+/* Style the text inside the Countdown Timer */
+.countdown-timer-wrapper span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  letter-spacing: 1px;
+  animation: glow 1.5s infinite alternate;
+}
+
+/* Add a pulsing effect to the countdown timer */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Add a glowing effect to the text */
+@keyframes glow {
+  0% {
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  }
+  100% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6);
+  }
+}
+
+/* Add a subtle fade-in animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Text glow animation for the title */
+@keyframes textGlow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #ff6a88, 0 0 30px #ff6a88;
+  }
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff99ac, 0 0 40px #ff99ac;
+  }
+}

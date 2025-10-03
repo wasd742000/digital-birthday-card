@@ -7,7 +7,7 @@
   perspective: 1000px;
   position: relative;
   width: 100%;
-  height: 500px; /* Define a fixed height to prevent overlap */
+  height: 750px; /* Increased by 50% */
   overflow: hidden; /* Ensure floating items stay within bounds */
   z-index: 1; /* Ensure it does not overlap higher-priority elements */
 }
@@ -65,12 +65,12 @@
   position: absolute;
   animation: float2D var(--duration, 8s) ease-in-out infinite;
   animation-delay: var(--delay, 0s);
-  width: 80px; /* Adjusted size for smaller images */
-  height: 80px; /* Maintain aspect ratio */
-  border: 2px solid #fff;
-  border-radius: 50%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 120px; /* Adjusted size for smaller images */
+  height: 120px; /* Maintain aspect ratio */
+  border: 2px solid rgba(255, 255, 255, 0.8); /* Delicate border with slight transparency */
+  border-radius: 15px; /* Subtle rounded corners */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Softer shadow for a delicate effect */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 /* Assign unique durations and delays using nth-child */
@@ -145,8 +145,9 @@
 }
 
 .floating-item:hover {
-  transform: scale(1.2);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 1); /* Brighten border on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+  transform: scale(1.05); /* Slight zoom effect */
 }
 
 /* Ensure images are distributed randomly within the container */
