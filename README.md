@@ -1,116 +1,70 @@
-# 🎂💕 Digital Birthday Card for My Love
+# Getting Started with Create React App
 
-A beautiful, interactive retro/vintage-styled birthday card website featuring floating photos and videos.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## ✨ Features
+## Available Scripts
 
-- **Retro/Vintage Design**: Warm sepia tones, vintage fonts, and paper textures
-- **Floating Media**: Photos and videos that gently float around the screen
-- **Interactive Elements**: Click to enlarge and view media in beautiful modals
-- **Love Notes**: Hidden clickable hearts with personal messages
-- **Responsive Design**: Works perfectly on desktop, tablet, and mobile
-- **Smooth Animations**: CSS animations for floating effects and transitions
-- **Background Music**: Optional romantic background music
+In the project directory, you can run:
 
-## 🚀 Setup Instructions
+### `npm start`
 
-1. **Add Your Media** ✨ **SUPER EASY!**:
-   - Place your photos in `assets/images/` with **ANY FILENAME**
-   - Place your videos in `assets/videos/` with **ANY FILENAME**
-   - The system automatically detects ALL your files!
-   - Supported: JPG, PNG, WebP, MP4, WebM, MOV
-   - Add background music in `assets/audio/romantic-background.mp3` (optional)
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-2. **Customize the Message**:
-   - Edit the title and romantic message in `index.html`
-   - Update the love notes with your personal messages
-   - Change the date stamp to the actual birthday date
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-3. **Deploy to GitHub Pages**:
-   - Push this repository to GitHub
-   - Go to repository Settings → Pages
-   - Select "Deploy from a branch" → main branch
-   - Your site will be available at `https://yourusername.github.io/repository-name`
+### `npm test`
 
-## 📁 File Structure
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-```
-sn-2d/
-├── index.html              # Main HTML file
-├── css/
-│   ├── style.css          # Main styles
-│   └── vintage-theme.css  # Retro/vintage specific styles
-├── js/
-│   ├── main.js           # Core functionality
-│   └── floating-media.js # Floating animations
-├── assets/
-│   ├── images/           # Your photos go here
-│   ├── videos/           # Your videos go here
-│   └── audio/            # Background music (optional)
-└── README.md             # This file
-```
+### `npm run build`
 
-## 🎨 Customization
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-### Changing Colors
-Edit the CSS variables in `css/vintage-theme.css`:
-```css
-:root {
-    --vintage-brown: #8B4513;
-    --vintage-tan: #D2B48C;
-    --vintage-cream: #F5F5DC;
-    --vintage-gold: #DAA520;
-}
-```
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-### Adding More Photos/Videos
-1. Simply add files to the appropriate `assets/` folder
-2. **Any filename works** - the system automatically detects them!
-3. Refresh the page to see new media floating around
-4. No code changes needed!
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### Personalizing Messages
-- Update the main title and subtitle
-- Change the romantic message
-- Modify the love notes data-message attributes
-- Add your own personal touches!
+### `npm run eject`
 
-## 💝 Love Notes
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-The floating hearts contain hidden messages that appear when clicked. Update these in the HTML:
-```html
-<div class="love-note" data-message="Your custom message here! 💕">
-    <span class="note-heart">💝</span>
-</div>
-```
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-## 🎵 Background Music
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-To add background music:
-1. Add your music file to `assets/audio/romantic-background.mp3`
-2. The music toggle button will allow users to play/pause
-3. Make sure to use royalty-free music for public deployment
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## 📱 Mobile Responsiveness
+## Learn More
 
-The card is fully responsive and works beautifully on:
-- Desktop computers
-- Tablets
-- Mobile phones
-- Different screen orientations
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-## 🌟 Browser Compatibility
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-Works on all modern browsers including:
-- Chrome
-- Firefox
-- Safari
-- Edge
+### Code Splitting
 
-## 💕 Made with Love
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-This digital birthday card is designed to create a magical, romantic experience that your girlfriend will treasure forever. Every floating photo and video tells your story together!
+### Analyzing the Bundle Size
 
----
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-**Happy Birthday to your amazing girlfriend! 🎂✨💕**
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

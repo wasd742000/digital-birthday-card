@@ -1,0 +1,243 @@
+/* Floating Media Enhancements */
+.floating-media-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  perspective: 1000px;
+  position: relative;
+  width: 100%;
+  height: 500px; /* Define a fixed height to prevent overlap */
+  overflow: hidden; /* Ensure floating items stay within bounds */
+  z-index: 1; /* Ensure it does not overlap higher-priority elements */
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes float2D {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-10px, 10px);
+  }
+  50% {
+    transform: translate(10px, -10px);
+  }
+  75% {
+    transform: translate(-10px, -10px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Define horizontal floating animations */
+@keyframes floatLeftToRight {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes floatRightToLeft {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.floating-item {
+  position: absolute;
+  animation: float2D var(--duration, 8s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  width: 80px; /* Adjusted size for smaller images */
+  height: 80px; /* Maintain aspect ratio */
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Assign unique durations and delays using nth-child */
+.floating-item:nth-child(1) {
+  --duration: 7s;
+  --delay: 0s;
+}
+
+.floating-item:nth-child(2) {
+  --duration: 6s;
+  --delay: 1s;
+}
+
+.floating-item:nth-child(3) {
+  --duration: 8s;
+  --delay: 2s;
+}
+
+.floating-item:nth-child(4) {
+  --duration: 5s;
+  --delay: 3s;
+}
+
+.floating-item:nth-child(5) {
+  --duration: 9s;
+  --delay: 4s;
+}
+
+.floating-item:nth-child(6) {
+  --duration: 7.5s;
+  --delay: 1.5s;
+}
+
+.floating-item:nth-child(7) {
+  --duration: 6.5s;
+  --delay: 2.5s;
+}
+
+.floating-item:nth-child(8) {
+  --duration: 8.5s;
+  --delay: 3.5s;
+}
+
+.floating-item:nth-child(9) {
+  --duration: 7.2s;
+  --delay: 0.8s;
+}
+
+.floating-item:nth-child(10) {
+  --duration: 6.8s;
+  --delay: 1.8s;
+}
+
+.floating-item:nth-child(11) {
+  --duration: 8.2s;
+  --delay: 2.2s;
+}
+
+.floating-item:nth-child(12) {
+  --duration: 5.8s;
+  --delay: 3.2s;
+}
+
+.floating-item:nth-child(13) {
+  --duration: 9.2s;
+  --delay: 4.2s;
+}
+
+.floating-item:nth-child(14) {
+  --duration: 7.8s;
+  --delay: 1.2s;
+}
+
+.floating-item:hover {
+  transform: scale(1.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Ensure images are distributed randomly within the container */
+.floating-item:nth-child(1) {
+  top: 10%;
+  left: 15%;
+}
+
+.floating-item:nth-child(2) {
+  top: 20%;
+  left: 40%;
+}
+
+.floating-item:nth-child(3) {
+  top: 30%;
+  left: 70%;
+}
+
+.floating-item:nth-child(4) {
+  top: 50%;
+  left: 10%;
+}
+
+.floating-item:nth-child(5) {
+  top: 60%;
+  left: 50%;
+}
+
+.floating-item:nth-child(6) {
+  top: 70%;
+  left: 80%;
+}
+
+.floating-item:nth-child(7) {
+  top: 15%;
+  left: 60%;
+}
+
+.floating-item:nth-child(8) {
+  top: 25%;
+  left: 30%;
+}
+
+.floating-item:nth-child(9) {
+  top: 35%;
+  left: 50%;
+}
+
+.floating-item:nth-child(10) {
+  top: 45%;
+  left: 20%;
+}
+
+.floating-item:nth-child(11) {
+  top: 55%;
+  left: 70%;
+}
+
+.floating-item:nth-child(12) {
+  top: 65%;
+  left: 40%;
+}
+
+.floating-item:nth-child(13) {
+  top: 75%;
+  left: 10%;
+}
+
+.floating-item:nth-child(14) {
+  top: 85%;
+  left: 60%;
+}
+
+.floating-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vintage-frame {
+  border: 5px solid #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Hidden love note area */
+.hidden-love-note {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2; /* Ensure it stays above floating media */
+}
